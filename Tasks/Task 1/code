@@ -1,0 +1,51 @@
+library IEEE;
+
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity task1 is
+  port(
+       A : in STD_LOGIC;
+       B : in STD_LOGIC;
+       Z1,Z2,Z3,Z4 : out STD_LOGIC);
+end task1;
+
+architecture Behavioral of task1 is
+component MUX4_1
+ port(
+       A0 : in STD_LOGIC;
+       A1 : in STD_LOGIC;
+       A2 : in STD_LOGIC;
+       A3 : in STD_LOGIC;
+       S0 : in STD_LOGIC;
+       S1 : in STD_LOGIC;
+       Z : out STD_LOGIC);
+       end component;
+signal x,y,v,w : STD_LOGIC;
+begin
+  Z1 <= A and B;
+  Z2 <= A or B;
+  Z3 <= A nand B;
+  Z4 <= A xor B;
+  x <= z1;
+  y <= z2;
+  v <= z3;
+  w <= z4;
+  MUX : MUX4_1
+  port map (
+  A0 <= x;
+  A1 <= y;
+  A2 <= v;
+  A3 <= w;
+  process (A0,A1,A2,A3,S0,S1)
+  begin
+  if S0 = '0' AND S1 = '0'
+    then Z = A0;
+  elsif S0 = '0' AND S1 = '1'
+    then Z = A1;
+  elsif S0 = '1' AND S1 = '0'
+    then Z = A2;
+  else Z = A3;
+    end if;
+    end process
+    );
+    end Behavioral;
